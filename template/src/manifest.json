@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "extension-name",
+  "description": "extension-description",
+  "version": "1.0.0",
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["main.js"]
+    }
+  ],
+  "action": {
+    "default_icon": {
+      "16": "assets/logo16.png"
+    },
+    "default_title": "extension-name",
+    "default_popup": "popup.html"
+  },
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "assets/*.png",
+        "assets/*.svg"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
+    }
+  ],
+  "permissions": [],
+  "host_permissions": [],
+  "icons": {
+    "16": "assets/logo16.png",
+    "48": "assets/logo48.png",
+    "128": "assets/logo128.png"
+  }
+}
