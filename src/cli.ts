@@ -6,6 +6,8 @@ export interface ExtensionSettings {
   description: string;
   hasPopupActionBtn: boolean;
   hasBackgroundWorker: boolean;
+  permissions: string[];
+  host_permissions: string[];
 }
 
 const DEFAULT_SETTINGS: ExtensionSettings = {
@@ -13,6 +15,8 @@ const DEFAULT_SETTINGS: ExtensionSettings = {
   hasPopupActionBtn: false,
   hasBackgroundWorker: false,
   description: "Extension description",
+  permissions: [],
+  host_permissions: [],
 };
 
 export async function wizzard() {

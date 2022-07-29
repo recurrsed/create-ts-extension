@@ -36,5 +36,8 @@ pnpm dlx create-extension
 
 # TODO
 
+- [x] Setup package.json
+- [x] Setup manifest.json
+- [ ] Setup depenencies
 - [ ] Ask about permissions in wizzard
 - [ ] Ask about url matches in wizzard
