@@ -2,6 +2,7 @@ import { wizzard } from "./cli.js";
 import {
   checkProjectExists,
   copyTemplate,
+  installDependencies,
   modifyManifest,
   modifyPackageJson,
   setupPackageJson,
@@ -10,13 +11,12 @@ import {
 async function main() {
   const settings = await wizzard();
 
-  console.log(settings);
-
   try {
     await checkProjectExists(settings);
     await copyTemplate(settings);
     await setupPackageJson(settings);
     await modifyPackageJson(settings);
+    await installDependencies(settings);
     await modifyManifest(settings);
 
     console.log("Project setup complete.");

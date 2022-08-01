@@ -1,13 +1,9 @@
 import path from "path";
 import fs from "fs-extra";
-import { fileURLToPath } from "url";
-import { ExtensionSettings } from "./cli.js";
-import { exec } from "child_process";
 import inquirer from "inquirer";
 
-const __filename = fileURLToPath(import.meta.url);
-const distPath = path.dirname(__filename);
-const PKG_ROOT = path.join(distPath, "../");
+import { ExtensionSettings } from "./cli.js";
+import { DEV_PACKAGES, execAsync, PKG_ROOT } from "./config.js";
 
 export async function checkProjectExists({ name }: ExtensionSettings) {
   const projectDir = path.resolve(process.cwd(), name);
@@ -36,30 +32,21 @@ export async function copyTemplate({ name }: ExtensionSettings) {
   await fs.copy(srcDir, projectDir);
 }
 
-export function setupPackageJson({ name }: ExtensionSettings) {
+export async function setupPackageJson({ name }: ExtensionSettings) {
   const projectDir = path.resolve(process.cwd(), name);
 
-  return new Promise((resolve, reject) => {
-    exec(`pnpm init`, { cwd: projectDir }, (error, stdout, stderr) => {
-      if (error) {
-        reject(error.message);
-      }
-
-      if (stderr) {
-        reject(stderr);
-      }
-
-      resolve(stdout);
-    });
-  });
+  await execAsync("pnpm init", { cwd: projectDir });
 }
 
 export async function modifyPackageJson({
   name,
   description,
 }: ExtensionSettings) {
+  console.log("Setting up devDepenencies.");
+
   const projectDir = path.resolve(process.cwd(), name);
   const packagejson = fs.readJsonSync(`${projectDir}/package.json`);
+  const devDependencies = await generateDevDependencies();
 
   const updatedPackageJson = {
     ...packagejson,
@@ -68,11 +55,38 @@ export async function modifyPackageJson({
       ...packagejson.scripts,
       build: "rm -rf ./dist && webpack",
     },
+    devDependencies,
   };
 
   fs.writeJsonSync(`${projectDir}/package.json`, updatedPackageJson, {
     spaces: 2,
   });
+}
+
+async function generateDevDependencies() {
+  const deps: Record<string, string> = {};
+
+  for (const pkg of DEV_PACKAGES) {
+    const { stdout: latestVersion } = await execAsync(
+      `npm show ${pkg} version`
+    );
+    if (!latestVersion) {
+      console.log("Could not find latest version for", pkg);
+      continue;
+    }
+
+    deps[pkg] = `^${latestVersion.trim()}`;
+  }
+
+  return deps;
+}
+
+export async function installDependencies({ name }: ExtensionSettings) {
+  const projectDir = path.resolve(process.cwd(), name);
+
+  console.log("Installing dependencies...");
+
+  await execAsync("pnpm install", { cwd: projectDir });
 }
 
 export async function modifyManifest({
@@ -93,5 +107,3 @@ export async function modifyManifest({
     spaces: 2,
   });
 }
-
-export async function installDependencies({ name }: ExtensionSettings) {}

@@ -4,7 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
   mode: "production",
   entry: {
-    main: "./src/main.ts",
+    index: "./src/index.ts",
     popup: "./src/popup.ts"
   },
   devtool: "source-map",
