@@ -1,4 +1,4 @@
-# create-extension
+# create-ts-extension
 
 CLI that helps you bootstrap a browser extension the same way you would with your modern\* framework.
 
@@ -13,22 +13,10 @@ CLI that helps you bootstrap a browser extension the same way you would with you
 
 To craete your extension, run one of the following:
 
-## npm
-
-```
-npx create-extension
-```
-
-## yarn
-
-```
-yarn create create-extension
-```
-
 ## pnpm
 
 ```
-pnpm dlx create-extension
+pnpm dlx create-ts-extension
 ```
 
 # Planed features

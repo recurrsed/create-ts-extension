@@ -11,11 +11,14 @@
     "release": "pnpm run build && pnpm publish"
   },
   "keywords": ["chrome", "extension", "typescript", "pnppm", "bootstrap"],
-  "author": "",
+  "author": "Emir M",
   "license": "ISC",
   "repository": {
     "type": "git",
     "url": "https://github.com/emirem/create-extension.git"
+  },
+  "bin": {
+    "create-ts-extensoin": "./dist/index.js"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
