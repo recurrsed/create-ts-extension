@@ -1,6 +1,6 @@
 {
   "name": "create-ts-extension",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Bootstrap browser extension with Typescript",
   "main": "index.js",
   "type": "module",
@@ -10,7 +10,13 @@
     "start": "node dist/index.js",
     "release": "pnpm run build && pnpm publish"
   },
-  "keywords": ["chrome", "extension", "typescript", "pnppm", "bootstrap"],
+  "keywords": [
+    "chrome",
+    "extension",
+    "typescript",
+    "pnppm",
+    "bootstrap"
+  ],
   "author": "Emir M",
   "license": "ISC",
   "repository": {
