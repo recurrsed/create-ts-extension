@@ -25,7 +25,7 @@
     "url": "https://github.com/emirem/create-extension.git"
   },
   "bin": {
-    "create-ts-extensoin": "./dist/index.js"
+    "create-ts-extension": "./dist/index.js"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
