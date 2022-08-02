@@ -43,4 +43,4 @@ pnpm dlx create-extension
 - [x] Setup depenencies
 - [ ] Ask about permissions in wizzard
 - [ ] Ask about url matches in wizzard
-- [ ] Setup publish process
+- [x] Setup publish process
