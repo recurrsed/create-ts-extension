@@ -1,6 +1,6 @@
 {
   "name": "create-ts-extension",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Bootstrap browser extension with Typescript",
   "main": "index.js",
   "type": "module",
