@@ -4,6 +4,7 @@ import inquirer from "inquirer";
 
 import { ExtensionSettings } from "./cli.js";
 import { DEV_PACKAGES, execAsync, PKG_ROOT } from "./config.js";
+import chalk from "chalk";
 
 export async function checkProjectExists({ name }: ExtensionSettings) {
   const projectDir = path.resolve(process.cwd(), name);
@@ -17,7 +18,7 @@ export async function checkProjectExists({ name }: ExtensionSettings) {
     });
 
     if (!overwrite) {
-      console.log("Aborting...");
+      console.log(chalk.bold.redBright("Setup aborted."));
       process.exit(0);
     }
 
@@ -42,7 +43,7 @@ export async function modifyPackageJson({
   name,
   description,
 }: ExtensionSettings) {
-  console.log("Setting up devDepenencies.");
+  console.log(chalk.bold.yellowBright("Setting up devDepenencies."));
 
   const projectDir = path.resolve(process.cwd(), name);
   const packagejson = fs.readJsonSync(`${projectDir}/package.json`);
@@ -71,7 +72,9 @@ async function generateDevDependencies() {
       `npm show ${pkg} version`
     );
     if (!latestVersion) {
-      console.log("Could not find latest version for", pkg);
+      console.log(
+        chalk.bold.yellowBright(`Could not find latest version for ${pkg}`)
+      );
       continue;
     }
 
@@ -84,7 +87,7 @@ async function generateDevDependencies() {
 export async function installDependencies({ name }: ExtensionSettings) {
   const projectDir = path.resolve(process.cwd(), name);
 
-  console.log("Installing dependencies...");
+  console.log(chalk.bold.yellowBright("Installing dependencies..."));
 
   await execAsync("pnpm install", { cwd: projectDir });
 }

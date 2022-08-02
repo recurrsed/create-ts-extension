@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { wizzard } from "./cli.js";
 import {
   checkProjectExists,
@@ -19,9 +20,13 @@ async function main() {
     await installDependencies(settings);
     await modifyManifest(settings);
 
-    console.log("Project setup complete.");
+    console.log(chalk.bold.greenBright("Project setup complete."));
   } catch (err) {
-    console.error(err);
+    console.log(
+      chalk.bold.bgRedBright(`
+      ${err}
+     `)
+    );
     process.exit(1);
   }
 }

@@ -1,5 +1,6 @@
 import inquirer from "inquirer";
 import { program } from "commander";
+import chalk from "chalk";
 
 export interface ExtensionSettings {
   name: string;
@@ -22,7 +23,13 @@ const DEFAULT_SETTINGS: ExtensionSettings = {
 export async function wizzard() {
   const settings: ExtensionSettings = DEFAULT_SETTINGS;
 
-  console.log("create-extension wizzard");
+  console.log(
+    chalk.bold.blueBright(`
+
+    create-extension wizzard
+
+   `)
+  );
 
   program
     .description("Create your browser extension.")
